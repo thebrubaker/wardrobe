@@ -34,6 +34,11 @@ class AppServiceProvider extends ServiceProvider {
 			'Wardrobe\Repositories\Post\PostRepository',
 			'Wardrobe\Repositories\Post\PostRepositoryEloquent'
 		);
+
+		$this->app->bind(
+			'Wardrobe\Repositories\PostImage\PostImageRepository',
+			'Wardrobe\Repositories\PostImage\PostImageRepositoryEloquent'
+		);
 	}
 
 }

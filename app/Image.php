@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostImage extends Model {
+class Image extends Model {
 
 	/**
 	 * The database table used by the model.

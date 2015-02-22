@@ -14,23 +14,9 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<label class="col-md-4 control-label">Text</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Facebook Copy</label>
-							<div class="col-md-6">
-								<textarea rows="4" class="form-control" name="facebook_copy">{{ old('facebook_copy') }}</textarea>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Twitter Copy</label>
-							<div class="col-md-6">
-								<textarea rows="2" class="form-control" name="twitter_copy">{{ old('twitter_copy') }}</textarea>
+								<textarea rows="4" class="form-control" name="text">{{ old('text') }}</textarea>
 							</div>
 						</div>
 
@@ -41,6 +27,19 @@
 							</div>
 						</div>
 
+						<div class="form-group">
+							<label class="col-md-4 control-label">Latitude</label>
+							<div class="col-md-6">
+								<input id="latitude" type="text" class="form-control" name="latitude">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Longitude</label>
+							<div class="col-md-6">
+								<input id="longitude" type="text" class="form-control" name="longitude">
+							</div>
+						</div>
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
@@ -55,4 +54,28 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+var latitude = document.getElementById("latitude");
+var longitude = document.getElementById("longitude");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        console.log('Position not available');
+    }
+}
+
+function showPosition(position) {
+    latitude.value = position.coords.latitude; 
+    longitude.value = position.coords.longitude; 
+}
+
+$('document').ready(function() {
+	getLocation();
+});
+</script>
 @endsection

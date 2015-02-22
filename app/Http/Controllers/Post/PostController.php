@@ -51,7 +51,7 @@ class PostController extends Controller {
 			CreatePostCommand::class, $request, ['user' => \Auth::user(), 'image' => $image]
 		);
 
-		dd($post);
+		return \Redirect::to('posts');
 	}
 
 	/**

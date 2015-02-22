@@ -22,10 +22,10 @@ class PostRequest extends Request {
 	public function rules()
 	{
 		$rules = [
-			'name' => 'required|max:255',
-			'facebook_copy' => 'required|max:500',
-			'twitter_copy' => 'required|max:140',
-			'image' => 'required|image',
+			'text' => 'required|max:255',
+			'image' => 'image',
+			'longitude' => 'required',
+			'latitude' => 'required'
 		];
 
 		return $rules;

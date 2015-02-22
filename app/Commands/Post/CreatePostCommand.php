@@ -1,36 +1,26 @@
 <?php namespace Wardrobe\Commands\Post;
 
 use Wardrobe\Commands\Command;
-use Wardrobe\Repositories\Post\PostRepository;
-
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use Wardrobe\User;
-use Wardrobe\Post;
-use Wardrobe\PostImage;
-
-use Carbon\Carbon;
+use Wardrobe\Repositories\Post\PostRepository;
 
 class CreatePostCommand extends Command implements SelfHandling {
 
 	public $user;
-	public $name;
-	public $facebook_copy;
-	public $twitter_copy;
-	public $image;
+	public $text;
+	public $location;
 
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(User $user, $name, $facebook_copy, $twitter_copy, $image)
+	public function __construct(User $user, $text, $location)
 	{
 		$this->user = $user;
-		$this->name = $name;
-		$this->facebook_copy = $facebook_copy;
-		$this->twitter_copy = $twitter_copy;
-		$this->image = $image;
+		$this->text = $text;
+		$this->location = $location;
 	}
 
 	/**
@@ -38,32 +28,15 @@ class CreatePostCommand extends Command implements SelfHandling {
 	 *
 	 * @return Wardrobe\Post
 	 */
-	public function handle(PostRepository $repository)
+	public function handle(PostRepository $postRepository)
 	{
-		$post = $repository->create(
+		$post = $postRepository->create(
 			$this->user, 
-			$this->name,
-			$this->facebook_copy,
-			$this->twitter_copy
+			$this->text,
+			$this->location
 		);
 
-		$extension = '.' . $this->image->guessExtension();
-		$timestamp = Carbon::now()->timestamp;
-		$name = snake_case($this->name);
-
-		$fileName = $name . '_' . $timestamp . $extension;
-		$path = 'images/uploads';
-
-		$this->image->move($path, $fileName);
-
-		$image = new PostImage;
-		$image->file_name = $fileName;
-		$image->file_path = $path;
-		$image->post()->associate($post);
-		$image->save();
-
 		return $post;
-
 	}
 
 }

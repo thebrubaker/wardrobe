@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PostImagesTable extends Migration {
+class ImagesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,10 @@ class PostImagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('post_images', function(Blueprint $table)
+		Schema::create('images', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('post_id')->unsigned();
-			$table->text('file_name');
 			$table->text('file_path');
 			$table->timestamps();
 		});
@@ -29,7 +28,7 @@ class PostImagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('post_images');
+		Schema::drop('images');
 	}
 
 }
